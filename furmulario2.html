@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Formulario de Proveedor</title>
+    <link rel="stylesheet" href="estilo.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h3 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        /* === Distribución en dos columnas === */
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .campo {
+            flex: 1 1 45%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #5c94e7;
+            box-shadow: 0 0 6px rgba(92,148,231,0.5);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #5c94e7;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #407ad6;
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+            .campo {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form id="formProveedor" action="grabar.php" method="post" onsubmit="limpiarFormulario(event)">
+        <h3>Registro de Proveedores</h3>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="nombreproveedor">Nombre del proveedor:</label>
+                <input type="text" id="nombreproveedor" name="nombreproveedor" required>
+            </div>
+
+            <div class="campo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="campo">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="campo">
+                <label for="email">Gmail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="campo">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+
+            <div class="campo">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+
+            <div class="campo">
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+
+            <div class="campo">
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" required>
+            </div>
+
+            <div class="campo">
+                <label for="codigopostal">Código Postal:</label>
+                <input type="text" id="codigopostal" name="codigopostal" required>
+            </div>
+        </div>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        function limpiarFormulario(event) {
+            event.preventDefault();
+            const form = document.getElementById("formProveedor");
+
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("✅ Datos guardados correctamente");
+                    form.reset();
+                } else {
+                    alert("⚠️ Error al guardar los datos");
+                }
+            })
+            .catch(() => alert("⚠️ No se pudo conectar con el servidor"));
+        }
+    </script>
+</body>
+</html>
+
